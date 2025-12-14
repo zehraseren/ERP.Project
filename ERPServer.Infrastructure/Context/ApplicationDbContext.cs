@@ -12,6 +12,7 @@ namespace ERPServer.Infrastructure.Context
         {
         }
 
+        public DbSet<Customer> Customers { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
