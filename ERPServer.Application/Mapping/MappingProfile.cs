@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ERPServer.Domain.Entities;
+using ERPServer.Application.Features.Customers.CreateCustomer;
 
 namespace ERPServer.Application.Mapping
 {
@@ -6,7 +8,7 @@ namespace ERPServer.Application.Mapping
     {
         public MappingProfile()
         {
-
+            CreateMap<CreateCustomerCommand, Customer>();
         }
     }
 }
