@@ -1,8 +1,8 @@
-﻿using ERPServer.Domain.Entities;
-using GenericRepository;
+﻿using GenericRepository;
+using ERPServer.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ERPServer.Infrastructure.Context
 {
@@ -13,6 +13,7 @@ namespace ERPServer.Infrastructure.Context
         }
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Depot> Depots { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(typeof(DependencyInjection).Assembly);
