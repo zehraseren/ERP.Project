@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ERPServer.Domain.Entities;
+using ERPServer.Application.Features.Depots.CreateDepot;
 using ERPServer.Application.Features.Customers.CreateCustomer;
 using ERPServer.Application.Features.Customers.UpdateCustomer;
 
@@ -11,6 +12,8 @@ namespace ERPServer.Application.Mapping
         {
             CreateMap<CreateCustomerCommand, Customer>();
             CreateMap<UpdateCustomerCommand, Customer>();
+
+            CreateMap<CreateDepotCommand, Depot>();
         }
     }
 }
