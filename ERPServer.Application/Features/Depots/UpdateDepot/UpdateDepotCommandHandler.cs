@@ -21,7 +21,7 @@ internal sealed class UpdateDepotCommandHandler(
             return Result<string>.Failure("Depo bulunamadı!");
         }
 
-        mapper.Map<Depot>(depot);
+        mapper.Map(request, depot);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return "Depo başarıyla güncellendi.";
