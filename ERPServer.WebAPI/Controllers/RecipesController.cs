@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ERPServer.WebAPI.Abstractions;
 using ERPServer.Application.Features.Recipes.GetAllRecipe;
+using ERPServer.Application.Features.Recipes.CreateRecipe;
 
 namespace ERPServer.WebAPI.Controllers;
 
@@ -13,6 +14,14 @@ public class RecipesController : ApiController
 
     [HttpPost]
     public async Task<IActionResult> GetAll(GetAllRecipeQuery request, CancellationToken cancellationToken)
+    {
+        var response = await _mediator.Send(request, cancellationToken);
+
+        return StatusCode(response.StatusCode, response);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateRecipeCommand request, CancellationToken cancellationToken)
     {
         var response = await _mediator.Send(request, cancellationToken);
 
