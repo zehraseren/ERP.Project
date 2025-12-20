@@ -1,0 +1,21 @@
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using ERPServer.WebAPI.Abstractions;
+using ERPServer.Application.Features.Recipes.GetAllRecipe;
+
+namespace ERPServer.WebAPI.Controllers;
+
+public class RecipesController : ApiController
+{
+    public RecipesController(IMediator mediator) : base(mediator)
+    {
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> GetAll(GetAllRecipeQuery request, CancellationToken cancellationToken)
+    {
+        var response = await _mediator.Send(request, cancellationToken);
+
+        return StatusCode(response.StatusCode, response);
+    }
+}
