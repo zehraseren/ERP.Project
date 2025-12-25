@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ERPServer.WebAPI.Abstractions;
 using ERPServer.Application.Features.RecipeDetails.CreateRecipeDetail;
+using ERPServer.Application.Features.RecipeDetails.UpdateRecipeDetail;
 using ERPServer.Application.Features.RecipeDetails.DeleteRecipeDetailById;
 using ERPServer.Application.Features.RecipeDetails.GetRecipeByIdWithDetails;
 
@@ -31,6 +32,14 @@ public class RecipeDetailsController : ApiController
 
     [HttpPost]
     public async Task<IActionResult> DeleteById(DeleteRecipeDetailByIdCommand request, CancellationToken cancellationToken)
+    {
+        var response = await _mediator.Send(request, cancellationToken);
+
+        return StatusCode(response.StatusCode, response);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(UpdateRecipeDetailCommand request, CancellationToken cancellationToken)
     {
         var response = await _mediator.Send(request, cancellationToken);
 

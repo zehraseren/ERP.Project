@@ -8,6 +8,7 @@ using ERPServer.Application.Features.Products.UpdateProduct;
 using ERPServer.Application.Features.Customers.CreateCustomer;
 using ERPServer.Application.Features.Customers.UpdateCustomer;
 using ERPServer.Application.Features.RecipeDetails.CreateRecipeDetail;
+using ERPServer.Application.Features.RecipeDetails.UpdateRecipeDetail;
 
 namespace ERPServer.Application.Mapping
 {
@@ -30,6 +31,7 @@ namespace ERPServer.Application.Mapping
                 options => options.MapFrom(p => ProductTypeEnum.FromValue(p.TypeValue)));
 
             CreateMap<CreateRecipeDetailCommand, RecipeDetail>();
+            CreateMap<UpdateRecipeDetailCommand, RecipeDetail>();
         }
     }
 }
