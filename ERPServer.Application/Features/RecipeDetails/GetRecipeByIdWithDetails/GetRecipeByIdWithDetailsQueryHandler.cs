@@ -12,7 +12,7 @@ internal sealed class GetRecipeByIdWithDetailsQueryHandler(
     public async Task<Result<Recipe>> Handle(GetRecipeByIdWithDetailsQuery request, CancellationToken cancellationToken)
     {
         Recipe? recipe = await recipeRepository
-            .Where(p => p.Id == request.Id)
+            .Where(p => p.Id == request.RecipeId)
             .Include(p => p.Product)
             .Include(p => p.Details!.OrderBy(p => p.Product!.Name))
             .ThenInclude(p => p.Product)
