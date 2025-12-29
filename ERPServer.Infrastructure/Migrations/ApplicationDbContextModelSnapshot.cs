@@ -334,6 +334,9 @@ namespace ERPServer.Infrastructure.Migrations
                     b.Property<Guid>("DepotId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("InvoiceId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<decimal>("NumberOfEntries")
                         .HasColumnType("decimal(7,2)");
 
@@ -347,6 +350,8 @@ namespace ERPServer.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("InvoiceId");
 
                     b.HasIndex("ProductId");
 
