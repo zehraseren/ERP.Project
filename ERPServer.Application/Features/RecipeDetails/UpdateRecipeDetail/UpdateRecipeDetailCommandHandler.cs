@@ -24,7 +24,7 @@ internal sealed class UpdateRecipeDetailCommandHandler(
                 p.Id != request.Id &&
                 p.ProductId == request.ProductId &&
                 p.RecipeId == recipeDetail.RecipeId)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(cancellationToken);
 
         if (oldRecipeDetail is not null)
         {
@@ -39,6 +39,6 @@ internal sealed class UpdateRecipeDetailCommandHandler(
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return "";
+        return "Reçetedeki ürün başarıyla güncellendi.";
     }
 }
