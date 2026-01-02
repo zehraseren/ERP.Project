@@ -10,4 +10,4 @@ public sealed record UpdateInvoiceCommand(
     int TypeValue,
     DateOnly Date,
     string InvoiceNumber,
-    List<InvoiceDetailDto> InvoiceDetails) : IRequest<Result<string>>;
+    List<InvoiceDetailDto> Details) : IRequest<Result<string>>;

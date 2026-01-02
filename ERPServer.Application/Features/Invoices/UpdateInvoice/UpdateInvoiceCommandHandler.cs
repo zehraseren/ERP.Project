@@ -31,7 +31,7 @@ internal sealed class UpdateInvoiceCommandHandler(
         stockMovementRepository.DeleteRange(movements);
         invoiceDetailRepository.DeleteRange(invoice.InvoiceDetails);
 
-        invoice.InvoiceDetails = request.InvoiceDetails.Select(s => new InvoiceDetail
+        invoice.InvoiceDetails = request.Details.Select(s => new InvoiceDetail
         {
             InvoiceId = invoice.Id,
             DepotId = s.DepotId,
@@ -44,7 +44,7 @@ internal sealed class UpdateInvoiceCommandHandler(
         mapper.Map(request, invoice);
 
         List<StockMovement> newMovements = new();
-        foreach (var item in request.InvoiceDetails)
+        foreach (var item in request.Details)
         {
             StockMovement movement = new()
             {

@@ -53,7 +53,7 @@ namespace ERPServer.Application.Mapping
                .ForMember(member => member.Type,
                options => options.MapFrom(p => InvoiceTypeEnum.FromValue(p.TypeValue)))
                .ForMember(member => member.InvoiceDetails,
-               options => options.MapFrom(p => p.InvoiceDetails.Select(s => new InvoiceDetail
+               options => options.MapFrom(p => p.Details.Select(s => new InvoiceDetail
                {
                    Price = s.Price,
                    ProductId = s.ProductId,
@@ -64,7 +64,7 @@ namespace ERPServer.Application.Mapping
                .ForMember(member => member.Type,
                options => options.MapFrom(p => InvoiceTypeEnum.FromValue(p.TypeValue)))
                .ForMember(member => member.InvoiceDetails,
-               options => options.MapFrom(p => p.InvoiceDetails.Select(s => new InvoiceDetail
+               options => options.MapFrom(p => p.Details.Select(s => new InvoiceDetail
                {
                    Price = s.Price,
                    ProductId = s.ProductId,

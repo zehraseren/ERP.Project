@@ -12,7 +12,7 @@ internal sealed class GetAllInvoiceQueryHandler(IInvoiceRepository invoiceReposi
     public async Task<Result<List<Invoice>>> Handle(GetAllInvoiceQuery request, CancellationToken cancellationToken)
     {
         List<Invoice> invoices = await invoiceRepository
-            .Where(p => p.Type.Value == InvoiceTypeEnum.FromValue(request.Type))
+            .Where(p => p.Type == InvoiceTypeEnum.FromValue(request.Type))
             .Include(p => p.Customer)
             .Include(p => p.InvoiceDetails!)
             .ThenInclude(p => p.Product)
