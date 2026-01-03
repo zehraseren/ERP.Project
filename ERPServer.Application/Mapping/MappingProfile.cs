@@ -11,6 +11,7 @@ using ERPServer.Application.Features.Invoices.CreateInvoice;
 using ERPServer.Application.Features.Invoices.UpdateInvoice;
 using ERPServer.Application.Features.Customers.CreateCustomer;
 using ERPServer.Application.Features.Customers.UpdateCustomer;
+using ERPServer.Application.Features.Productions.CreateProduction;
 using ERPServer.Application.Features.RecipeDetails.CreateRecipeDetail;
 using ERPServer.Application.Features.RecipeDetails.UpdateRecipeDetail;
 
@@ -71,6 +72,8 @@ namespace ERPServer.Application.Mapping
                    DepotId = s.DepotId,
                    Quantity = s.Quantity
                }).ToList()));
+
+            CreateMap<CreateProductionCommand, Production>();
         }
     }
 }
