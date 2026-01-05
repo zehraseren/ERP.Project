@@ -6,7 +6,6 @@ namespace ERPServer.Application.Features.Invoices.UpdateInvoice;
 
 public sealed record UpdateInvoiceCommand(
     Guid Id,
-    Guid CustomerId,
     int TypeValue,
     DateOnly Date,
     string InvoiceNumber,

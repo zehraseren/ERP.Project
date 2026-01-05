@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using TS.Result;
 using AutoMapper;
+using TS.Result;
 using GenericRepository;
 using ERPServer.Domain.Entities;
 using ERPServer.Domain.Repositories;
@@ -61,7 +61,6 @@ internal sealed class UpdateInvoiceCommandHandler(
 
         await stockMovementRepository.AddRangeAsync(newMovements, cancellationToken);
 
-        mapper.Map(request, invoice);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return "Fatura başarıyla güncellendi";
