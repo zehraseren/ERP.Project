@@ -1,61 +1,99 @@
-# Clean Architecture
+# ERP Project - Clean Architecture Based Monorepo
 
-ASP.NET Core için Clean Architecture başlangıç projesi. [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) loosely-coupled, dependency-inverted architecture mimarisine yönelik bir dizi mimarinin sonuncusu. [Hexagonal](http://alistair.cockburn.us/Hexagonal+architecture), [ports-and-adapters](http://www.dossier-andreas.net/software_architecture/ports_and_adapters.html), or [onion architecture](http://jeffreypalermo.com/blog/the-onion-architecture-part-1/) diye de adlandırıldığını duyabilirsiniz.
+Bu proje **ASP.NET Core için Clean Architecture** temelli bir backend altyapısı üzerine inşa edilmiş, **Angular tabanlı frontend** ile desteklenen uçtan uca bir **ERP (Enterprise Resource Planning)** uygulamasıdır.
 
-## Table Of Contents
+Projenin backend alt yapısı, başlangıçta eğitim amacıyla verilen ve **NuGet üzerinden kurulan** [Clean Architecture template](https://www.nuget.org/packages/TS.Result/10.0.0)'i temel alınarak geliştirilmiş; zamanla iş süreçleri, domain kuralları ve frontend entegrasyonu eklenerek genişletilmiştir.
 
-- [Clean Architecture](#clean-architecture)  
-  - [Table of contents](#table-of-contents)
-  - [Give a start! :star:](#give-a-star-star)
-  - [Versions](#versions)
-  - [Getting Started](#getting-started)
+###### *Bu proje Taner Saydam'ın Udemy'deki [.NET 8 ve Angular 17 ile ERP Uygulaması](https://www.udemy.com/course/angular-17-ve-net-8-ile-erp-uygulamasi/) referans alınarak geliştirilmiştir. Eğitim sonunda alınan [sertifika için tıklayınız](https://drive.google.com/file/d/1-9XlSyskLf0ZpwEJWoHGnQTYnl-UxNiD/view?usp=sharing).*
 
-## Give a start! :star:
-Eğer bu projeyi kullanıyor ya da beğendiyseniz yıldız vererek destek olabilirsiniz. Teşekkürler!
+## 📐 Mimari Yaklaşım
+Backend tarafında **Clean Architecture** prensipleri benimsenmiştir:
++ Loose coupling
++ Dependency Injection
++ Domain odaklı tasarım
++ Test edilebilir ve genişletilebilir yapı
 
-## Versions
-
-Proje şu anda .NET 8 versiyonunu kullanıyor. Eski versiyonlarda desteği yok.
-
-# Getting Started
-
-Bu proje bir template olarak NuGet package üzerinden yayımlandı. Kurduktan sonra VS2022 de yeni proje oluştur sekmenizde proje listenizde yer alacaktır.
-
-Kurmak için [NuGet (https://www.nuget.org/packages/TS.ERPServer)](https://www.nuget.org/packages/TS.ERPServer/) burayı ziyaret edebilirsiniz
-
-Ya da aşağıdaki kod bloğunu çalıştırarak kurabilirsiniz
-
-```powershell
-dotnet new install TS.ERPServer
+## 🗂️ Proje Yapısı (Monorepo)
+```
+ERP/
+│
+├── ERPServer/        → ASP.NET Core (.NET 8) Backend
+│   ├── Domain
+│   ├── Application
+│   ├── Infrastructure
+│   └── WebAPI
+│
+├── ERPClient/        → Angular Frontend
+│
+└── README.md
 ```
 
-kurulum bittikten sonra `dotnet new list` ile VS2022 proje listesini görüntüleyip "ASP.NET Clean Architecture Solution" kısa adı "ts.erpserver" proje template'ini arayabilirsiniz. Eğer listede bulduysanız artık VS2022 üzerinden yeni proje oluştur deyip proje arama çubuğunda "Clean Architecture" diye arayarak bulabilirsiniz.
+## 🧠 Backend Teknolojileri
+Backend projesi .NET 8 ile geliştirilmiştir.
 
-![Proje Template](https://github.com/TanerSaydam/ERPServer.Template/blob/main/images/projeyibulma.png)
+Kullanılan başlıca kütüphaneler:
++ EntityFrameworkCore
++ EntityFrameworkCore.Identity
++ MediatR
++ AutoMapper
++ FluentValidation
++ TS.Result
++ TS.EntityFrameworkCore.GenericRepository
 
-Projeyi seçtikten sonra istediğiniz ismi verin örneğin `eCommerce`
+Backend tarafında:
++ CQRS pattern
++ Repository pattern
++ Unit of Work
++ Validation ve Result pattern
+  aktif olarak kullanılmaktadır.
 
-![Proje Structure](https://github.com/TanerSaydam/ERPServer.Template/blob/main/images/projestructure.png)
+## 🎨 Frontend Teknolojileri
+Frontend tarafı Angular ile geliştirilmiştir.
 
-## Projede kullanılan kütüphaneler
-- **EntityFrameworkCore**
-- **EntityFrameworkCore.Identity**
-- **MediatR**
-- **AutoMapper**
-- **FluentValidation**
-- **TS.Result**
-- **TS.EntityFrameworkCore.GenericRepository**
++ Standalone component yapısı
++ Template-driven forms
++ Custom pipes
++ Servis bazlı HTTP katmanı
++ Backend API ile tam entegre çalışma
 
-Proje başlangıçta MSSQL ile ayarlandı. MSSQL ile devam etmek istiyorsanız `appsetting.json` dosyasında ConnectionStrings kısmını kendinize göre düzenleyin
+> Frontend, backend’den tamamen bağımsız geliştirilmiş olup aynı repository içinde **monorepo** yaklaşımıyla konumlandırılmıştır.
 
-![Connection String](https://github.com/TanerSaydam/ERPServer.Template/blob/main/images/connectionstring.png)
+## 🗄️ Veritabanı
++ Varsayılan veritabanı: **MSSQL**
++ Connection string `appsettings.json` üzerinden yapılandırılabilir
+```json
+"ConnectionStrings": {
+  "SqlServer": "Server=.;Database=ERPDb;Trusted_Connection=True;"
+}
+```
+> Farklı bir veritabanı kullanılmak istenirse: **Infrastructure katmanındaki EF Core provider değiştirilmelidir.**
 
-Eğer Database değiştirmek istiyorsanız kurulu NuGet package'ini Infrastructure katmanında değiştirip connection bilgisini değiştirmelisiniz.
+## 🔐 Kimlik Doğrulama
++ ASP.NET Core Identity altyapısı hazır bulunmaktadır
++ Uygulama ilk çalıştığında otomatik olarak admin kullanıcı oluşturulur
++ Login mekanizması backend tarafında hazır şekilde gelmektedir
 
-Login metodu ve User classı projede mevcut.
-Proje çalıştığında otomatik bir admin kullanıcısı oluşturur
+## 🚀 Projenin Amacı
+Bu proje:
++ Clean Architecture prensiplerini gerçek bir iş senaryosu üzerinde uygulamak
++ Backend ve frontend entegrasyonunu kurumsal ölçekte deneyimlemek
++ ERP sistemlerinin temel yapı taşlarını öğrenmek
+  amacıyla geliştirilmiştir.
 
-![Create First User](https://github.com/TanerSaydam/ERPServer.Template/blob/main/images/createfirstuser.png)
+## Proje Görselleri
+###### *Görseller demo amaçlıdır.*
+### Login
+<img width="1918" height="861" alt="Ekran görüntüsü 2026-01-07 174333" src="https://github.com/user-attachments/assets/aa80ce18-b36f-4fdb-9460-b4f05e260225" />
 
+### Müşteri Listesi
+<img width="1919" height="848" alt="Ekran görüntüsü 2026-01-07 182244" src="https://github.com/user-attachments/assets/f6cd13c6-7485-49dd-bacb-cab41eed2307" />
 
+### Sipariş Ekranı
+<img width="1919" height="865" alt="Ekran görüntüsü 2026-01-07 174510" src="https://github.com/user-attachments/assets/c8cbb244-203e-4fb6-99d6-f486ddb05407" />
 
+### Fatura Ekranı
+<img width="1913" height="848" alt="Ekran görüntüsü 2026-01-07 182509" src="https://github.com/user-attachments/assets/e52d327e-37c0-47a6-a02c-e1c6afdfb7db" />
+<img width="1893" height="854" alt="Ekran görüntüsü 2026-01-07 182628" src="https://github.com/user-attachments/assets/487462c1-3d3a-409c-a4d0-0fbbb2291df0" />
+
+### Üretim Ekranı
+<img width="1914" height="852" alt="Ekran görüntüsü 2026-01-07 182522" src="https://github.com/user-attachments/assets/de2d45bb-77f3-46a9-ae34-ebdb3ea0e8d9" />
